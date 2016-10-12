@@ -8,20 +8,24 @@ def main():
 
 	response = requests.post(url, data=payload)
 
-	d = ast.literal_eval(response.content)
+	d = ast.literal_eval(response.text)
+
+	print d
 
 	pre = d['prefix']
+	print type(pre)
 	words = d['array']
 
 	words_no_pre = []
-	print pre
-	print words
 	for w in words:
 		if not w.startswith(pre):
 			words_no_pre.append(w)
-	print words_no_pre
+	
+
 	url = "http://challenge.code2040.org/api/prefix/validate"
 	payload = {"token" : token, "array" : words_no_pre}
+
+	print payload
 
 	response = requests.post(url, data=payload)
 	print response.content
